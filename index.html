@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Beruang Pengakuan</title>
+    <style>
+      #preloader {
+        position: absolute;
+        z-index: 99999;
+        width: 100%;
+        height: 100vh;
+        font-size: 10vw;
+        background-color: white;
+        text-align: center;
+        line-height: 80vh;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #eee;
+      }
+      #container {
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        max-width: 800px;
+        max-height: 600px;
+        overflow: hidden;
+      }
+      #bear {
+        position: relative;
+        width: 350px;
+        bottom: 1100px;
+        margin: auto;
+        display: block;
+        z-index: 2;
+      }
+      @keyframes sky {
+        0% {
+          background-position-x: 1177px;
+        }
+        100% {
+          background-position-x: 0;
+        }
+      }
+
+      #sky {
+        position: relative;
+        width: 2354px;
+        height: 586px;
+        background-image: url("image/sky.jpg");
+        background-size: 900px;
+        background-repeat: repeat;
+        animation-name: sky;
+        animation-duration: 100s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+      #bg {
+        margin: auto;
+        position: relative;
+        display: block;
+        width: 1000px;
+        right: 100px;
+        bottom: 700px;
+      }
+      #kabel {
+        position: relative;
+        z-index: 1;
+        width: 800px;
+        display: block;
+        margin: auto;
+        bottom: 1710px;
+      }
+      #dialogBox {
+        position: relative;
+        margin: auto;
+        display: block;
+        bottom: 2264px;
+        background-color: white;
+        width: 350px;
+        height: 120px;
+        border-radius: 20px;
+        opacity: 0;
+        text-align: center;
+      }
+      #dialogBox::before {
+        content: "";
+        display: block;
+        position: relative;
+        width: 0px;
+        border-left: 30px solid transparent;
+        border-right: 60px solid transparent;
+        border-top: 45px solid white;
+        left: 255px;
+        top: 111px;
+      }
+      #start {
+        position: relative;
+        margin: auto;
+        display: block;
+        bottom: 2380px;
+        width: 180px;
+        height: 70px;
+        border-radius: 10px;
+        font-size: 32px;
+        z-index: 99;
+      }
+      @keyframes efek {
+        0% {
+          bottom: 2050px;
+          left: 85px;
+          opacity: 0.2;
+        }
+        50% {
+          bottom: 2057px;
+          left: 92px;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          bottom: 2060px;
+          left: 95px;
+          opacity: 1;
+        }
+      }
+      #efek {
+        position: relative;
+        margin: auto;
+        display: block;
+        bottom: 2050px;
+        opacity: 0;
+        left: 85px;
+        width: 64px;
+        z-index: 69;
+        transition: opacity 0.2s;
+      }
+      #efek.play {
+        animation-name: efek;
+        animation-timing-function: linear;
+        animation-duration: 0.4s;
+        animation-iteration-count: infinite;
+      }
+      #text {
+        position: relative;
+        bottom: 110px;
+        font-size: 18px;
+        margin: 10px;
+        padding: 10px;
+        font-family: Sans-Serif;
+        text-align: left;
+      }
+      @keyframes shake {
+        0% {
+          transform: translate(1px, 1px) rotate(0deg);
+        }
+        10% {
+          transform: translate(-1px, -2px) rotate(-1deg);
+        }
+        20% {
+          transform: translate(-3px, 0px) rotate(1deg);
+        }
+        30% {
+          transform: translate(3px, 2px) rotate(0deg);
+        }
+        40% {
+          transform: translate(1px, -1px) rotate(1deg);
+        }
+        50% {
+          transform: translate(-1px, 2px) rotate(-1deg);
+        }
+        60% {
+          transform: translate(-3px, 1px) rotate(0deg);
+        }
+        70% {
+          transform: translate(3px, 1px) rotate(-1deg);
+        }
+        80% {
+          transform: translate(-1px, -1px) rotate(1deg);
+        }
+        90% {
+          transform: translate(1px, 2px) rotate(0deg);
+        }
+        100% {
+          transform: translate(1px, -2px) rotate(-1deg);
+        }
+      }
+      #yes,
+      #no {
+        display: inline;
+        position: relative;
+        width: 150px;
+        height: 60px;
+        bottom: 130px;
+        border-radius: 12px;
+        font-size: 18px;
+        opacity: 0;
+        z-index: 99;
+      }
+      #no:hover {
+        animation-name: shake;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+      }
+      button:active {
+        background-color: #dfff2c;
+      }
+
+      @media screen and (max-width: 576px) {
+        #bg {
+          right: 300px;
+        }
+        #sky {
+          right: 200px;
+        }
+        #kabel {
+          right: 190px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">Loading...</div>
+    <div id="container">
+      <div id="sky"></div>
+      <img src="image/bg.png" id="bg" />
+      <img src="image/bear.png" id="bear" />
+      <img src="image/kabel.png" id="kabel" />
+      <img src="image/efek.png" id="efek" />
+      <div id="dialogBox">
+        <button id="yes" onclick="alert('Klik Gamau!!')">Okeh</button>
+        <button id="no" onclick="gamau()">Gamau</button>
+        <p id="text"></p>
+      </div>
+      <button id="start" onclick="mulai()">Mulai</button>
+    </div>
+    <script>
+      dialog = {
+        opening: {
+          audio: new Audio("audio/openingBeruang.mp3"),
+          text: "Namaku adalah beruang pengakuan, katakan padaku semua rahasiamu...",
+        },
+        mungkin: {
+          audio: new Audio("audio/mungkin.mp3"),
+          text: "",
+        },
+        maksa: {
+          audio: new Audio("audio/maksa1.mp3"),
+          text: "Katakan pada beruang pengakuan!",
+        },
+        maksa2: {
+          audio: new Audio("audio/maksa2.mp3"),
+          text: "Katakan pada beruang pengakuan sekarang!!!",
+        },
+      };
+      let i = 0;
+      let pemaksaan = 0;
+
+      function typeReset() {
+        i = 0;
+        text.innerHTML = "";
+      }
+      function typing(txt, durasi) {
+        if (i < txt.length) {
+          text.innerHTML += txt.charAt(i);
+          setTimeout(() => {
+            i++;
+            typing(txt, durasi);
+          }, durasi);
+        }
+      }
+
+      function mulai() {
+        dialog.opening.audio.play();
+        start.style.display = "none";
+        efek.classList.add("play");
+        dialogBox.style.opacity = "1";
+        typeReset();
+        typing(dialog.opening.text, 70);
+        setTimeout(() => {
+          efek.classList.remove("play");
+          yes.style.opacity = 1;
+          no.style.opacity = 1;
+        }, 5000);
+      }
+
+      function gamau() {
+        yes.style.opacity = 0;
+        no.style.opacity = 0;
+        efek.classList.add("play");
+        if (pemaksaan >= 2) {
+          dialog.maksa2.audio.play();
+          typeReset();
+          typing(dialog.maksa2.text, 45);
+          pemaksaan = 0;
+          setTimeout(() => {
+            efek.classList.remove("play");
+            yes.innerHTML = "Okeh okeh";
+            yes.style.opacity = 1;
+            no.style.opacity = 1;
+          }, 2000);
+        } else {
+          dialog.maksa.audio.play();
+          typeReset();
+          typing(dialog.maksa.text, 45);
+          setTimeout(() => {
+            efek.classList.remove("play");
+            yes.innerHTML = "Okeh";
+            yes.style.opacity = 1;
+            no.innerHTML = pemaksaan > 1 ? "Gamau!" : "Gamau";
+            no.style.opacity = 1;
+          }, 1500);
+          pemaksaan++;
+        }
+      }
+      window.addEventListener("load", () => {
+        preloader.style.display = "none";
+      });
+    </script>
+  </body>
+</html>
